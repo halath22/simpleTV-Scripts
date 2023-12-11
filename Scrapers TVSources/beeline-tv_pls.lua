@@ -7,6 +7,11 @@
 local filter = {
 	{'', ''},
 	}
+	
+local cleanNamesTab = {
+		'HD',
+	}
+		
 	module('beeline-tv_pls', package.seeall)
 	local my_src_name = 'Beeline TV'
 	local function ProcessFilterTableLocal(t)
@@ -18,6 +23,13 @@ local filter = {
 					t[i].name = ff[2]
 				end
 			end
+			local function cleanNames(name)
+				for i = 1, #cleanNamesTab do
+					name = name:gsub(cleanNamesTab[i], '')
+				end
+			 return name
+			end
+			t[i].name = cleanNames(t[i].name) 
 		end
 	 return t
 	end

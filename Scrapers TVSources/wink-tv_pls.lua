@@ -7,6 +7,11 @@
 local filter = {
 	{'', ''},
 	}
+	
+local cleanNamesTab = {
+		'HD',
+	}
+	
 	module('wink-tv_pls', package.seeall)
 	local my_src_name = 'Wink TV'
 	local function ProcessFilterTableLocal(t)
@@ -17,7 +22,14 @@ local filter = {
 				if (type(ff) == 'table' and t[i].name == ff[1]) then
 					t[i].name = ff[2]
 				end
+			end	
+			local function cleanNames(name)
+				for i = 1, #cleanNamesTab do
+					name = name:gsub(cleanNamesTab[i], '')
+				end
+			 return name
 			end
+			t[i].name = cleanNames(t[i].name)			
 		end
 	 return t
 	end
